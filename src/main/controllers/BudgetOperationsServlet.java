@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by admin on 23.04.2017.
@@ -28,14 +31,14 @@ public class BudgetOperationsServlet extends HttpServlet {
             req.setAttribute("student", budgetOperationService.get(id));
             getServletContext().getRequestDispatcher("/BudgetOperationsForm.jsp").forward(req, resp);
         } else if (req.getParameter("add") != null) {
-            req.setAttribute("BudgetOperation", BudgetOperationService.create());
+            req.setAttribute("BudgetOperation", budgetOperationService.create());
             getServletContext().getRequestDispatcher("/BudgetOperationsForm.jsp").forward(req, resp);
         } else if (tryParseInt((String) req.getParameter("delete")) ) {
             id = Integer.parseInt((String) req.getParameter("delete"));
-            BudgetOperationService.delete(id);
+            budgetOperationService.delete(id);
             resp.sendRedirect(req.getContextPath() + "/BudgetOperationss/");
         } else {
-            req.setAttribute("BudgetOperationss", BudgetOperationService.getAllStudents());
+            req.setAttribute("BudgetOperationss", budgetOperationService.getAllBedgetOperations());
             getServletContext().getRequestDispatcher("/BudgetOperationsList.jsp").forward(req, resp);
         }
     }
@@ -48,12 +51,19 @@ public class BudgetOperationsServlet extends HttpServlet {
             if (tryParseInt(req.getParameter("id"))) {
                 id = Integer.parseInt(req.getParameter("id"));
             }
-            BudgetOperationService.save(
-                    id,
-                    req.getParameter("name"),
-                    Integer.parseInt(req.getParameter("age")),
-                    Integer.parseInt(req.getParameter("group_id"))
-            );
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            try {
+                budgetOperationService.save(
+                        id,
+                        Integer.parseInt(req.getParameter("userID")),
+                        formatter.parse(req.getParameter("dateOper")),
+                        Integer.parseInt(req.getParameter("budget")),
+                        Float.parseFloat(req.getParameter("summa")),
+                        req.getParameter("description"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         } catch (NumberFormatException e) {
             //LOGGER.error("error in parameters");
         }
