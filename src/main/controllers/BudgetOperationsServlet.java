@@ -38,8 +38,9 @@ public class BudgetOperationsServlet extends HttpServlet {
             budgetOperationService.delete(id);
             resp.sendRedirect(req.getContextPath() + "/BudgetOperationss/");
         } else {
-            req.setAttribute("BudgetOperationss", budgetOperationService.getAllBedgetOperations());
+            req.setAttribute("BudgetOperations", budgetOperationService.getAllBedgetOperations());
             getServletContext().getRequestDispatcher("/BudgetOperationsList.jsp").forward(req, resp);
+
         }
     }
 

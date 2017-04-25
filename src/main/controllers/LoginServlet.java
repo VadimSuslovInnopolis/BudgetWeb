@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         if (login.length() < 7 || password.length() < 7) {
-//            resp.sendRedirect(req.getContextPath() + "/login");
+            resp.sendRedirect(req.getContextPath() + "/");
         } else {
             if (userService.auth(login, password) != null) {
                 req.getSession().setAttribute("userLogin", login);

@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class BudgetOperationDAOImpl implements BudgetOperationDAO {
 
-    private static final String SELECT_ALL = "SELECT id, userID, dateOper, budget, summa, description FROM BudgetOperations";
+    private static final String SELECT_ALL = "SELECT id, userID, dateOper, bugdet, summa, description FROM BudgetOperations";
 
-    private static final String INSERT_INTO = "INSERT INTO BudgetOperations (userID, dateOper, budget, summa, description) VALUES (?, ?, ?)";
-    private static final String UPDATE_WHERE = "UPDATE BudgetOperations SET userID = ?, dateOper = ?, budget = ? summa = ? description = ? WHERE id = ?";
+    private static final String INSERT_INTO = "INSERT INTO BudgetOperations (userID, dateOper, bugdet, summa, description) VALUES (?, ?, ?,?, ?)";
+    private static final String UPDATE_WHERE = "UPDATE BudgetOperations SET userID = ?, dateOper = ?, bugdet = ? summa = ? description = ? WHERE id = ?";
     private static final String DELETE_BY_ID = "DELETE FROM BudgetOperations WHERE id=?";
 
     @Override
@@ -119,7 +119,7 @@ public class BudgetOperationDAOImpl implements BudgetOperationDAO {
 
     private BudgetOperation createEntity(ResultSet resultSet) throws SQLException {
         BudgetOperation budgetOperation = new BudgetOperation(resultSet.getInt("id"), resultSet.getInt("userID"),
-                resultSet.getDate("dateOper"), resultSet.getInt("budget"), resultSet.getFloat("summa"),
+                resultSet.getDate("dateOper"), resultSet.getInt("bugdet"), resultSet.getFloat("summa"),
                 resultSet.getString("description"));
 
         return budgetOperation;

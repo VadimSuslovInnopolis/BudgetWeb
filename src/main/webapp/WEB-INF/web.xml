@@ -16,6 +16,10 @@
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>main.controllers.LoginServlet</servlet-class>
   </servlet>
+    <servlet>
+        <servlet-name>BudgetOperationsServlet</servlet-name>
+        <servlet-class>main.controllers.BudgetOperationsServlet</servlet-class>
+    </servlet>
 
   <servlet-mapping>
     <servlet-name>HelloServlet</servlet-name>
@@ -25,5 +29,9 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BudgetOperationsServlet</servlet-name>
+        <url-pattern>/listBudgets</url-pattern>
+    </servlet-mapping>
 
 </web-app>

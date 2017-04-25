@@ -33,10 +33,10 @@
     <c:forEach items="${requestScope.BudgetOperations}" var="BudgetOperation">
         <tr>
             <td><c:out value="${BudgetOperation.id}"></c:out></td>
-            <td><c:out value="${BudgetOperation.DateOper}"></c:out></td>
-            <td><c:out value="${BudgetOperation.Budget}"></c:out></td>
-            <td><c:out value="${BudgetOperation.Summa}"></c:out></td>
-            <td><c:out value="${BudgetOperation.Decription}"></c:out></td>
+            <td><c:out value="${BudgetOperation.dateOper}"></c:out></td>
+            <td><c:out value="${BudgetOperation.budget}"></c:out></td>
+            <td><c:out value="${BudgetOperation.summa}"></c:out></td>
+            <td><c:out value="${BudgetOperation.description}"></c:out></td>
             <td><a href="${pageContext.request.contextPath}/BudgetOperations/?edit=${BudgetOperation.id}">Редактировать</a>  <a href="${pageContext.request.contextPath}/budgetoperations/?delete=${BudgetOperation.id}" onclick="if (!confirm('Are you sure?')) return false;">Удалить</a></td>
         </tr>
     </c:forEach>

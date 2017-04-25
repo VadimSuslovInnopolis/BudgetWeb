@@ -2,6 +2,7 @@ package main.model.dao;
 
 import main.model.ConnectionPool;
 import main.model.pojo.User;
+import org.apache.log4j.Logger;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
@@ -14,6 +15,8 @@ import java.util.Collection;
  * Created by admin on 21.04.2017.
  */
 public class UserDAOImpl implements UserDAO {
+
+    private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
 
     public Collection<User> getAll() {
         throw new NotImplementedException();
@@ -55,18 +58,12 @@ public class UserDAOImpl implements UserDAO {
                         resultSet.getBoolean("admin"));
             }
 
-            //logger.debug("user " + user);
+            logger.debug("user " + user);
         } catch (SQLException e) {
-            //logger.error(e);
+            logger.error(e);
+            e.printStackTrace();
         }
 
         return user;
     }
 }
-
-//    private User createEntity(ResultSet resultSet) throws SQLException {
-//        return new User(resultSet.getLong("id"),
-//                resultSet.getString("login"),
-//                resultSet.getString("password"),
-//                resultSet.getBoolean("is_blocked"));
-//    }
