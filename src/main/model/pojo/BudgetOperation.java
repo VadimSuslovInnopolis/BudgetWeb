@@ -13,7 +13,7 @@ public class BudgetOperation {
     private float summa;
     private String description;
 
-    public BudgetOperation(Integer id, Integer userID, Date dateOper, Integer budget, Float summa, String description) {
+    public BudgetOperation(int id, int userID, Date dateOper, int budget, float summa, String description) {
         this.id = id;
         this.userID = userID;
         this.dateOper = dateOper;

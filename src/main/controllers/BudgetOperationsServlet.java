@@ -28,7 +28,7 @@ public class BudgetOperationsServlet extends HttpServlet {
         Integer id = null;
         if (tryParseInt((String) req.getParameter("edit")) ){
             id = Integer.parseInt((String) req.getParameter("edit"));
-            req.setAttribute("student", budgetOperationService.get(id));
+            req.setAttribute("BudgetOperation", budgetOperationService.get(id));
             getServletContext().getRequestDispatcher("/BudgetOperationsForm.jsp").forward(req, resp);
         } else if (req.getParameter("add") != null) {
             req.setAttribute("BudgetOperation", budgetOperationService.create());
@@ -36,7 +36,7 @@ public class BudgetOperationsServlet extends HttpServlet {
         } else if (tryParseInt((String) req.getParameter("delete")) ) {
             id = Integer.parseInt((String) req.getParameter("delete"));
             budgetOperationService.delete(id);
-            resp.sendRedirect(req.getContextPath() + "/BudgetOperationss/");
+            resp.sendRedirect(req.getContextPath() + "/BudgetOperations/");
         } else {
             req.setAttribute("BudgetOperations", budgetOperationService.getAllBedgetOperations());
             getServletContext().getRequestDispatcher("/BudgetOperationsList.jsp").forward(req, resp);
@@ -48,27 +48,30 @@ public class BudgetOperationsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doPost(req, resp);
         try {
-            Integer id = null;
+            int id = 0;
             if (tryParseInt(req.getParameter("id"))) {
                 id = Integer.parseInt(req.getParameter("id"));
             }
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
+            //Integer.parseInt(req.getParameter("userID"))
+            //Integer.parseInt(req.getParameter("budget"))
             try {
                 budgetOperationService.save(
                         id,
-                        Integer.parseInt(req.getParameter("userID")),
+                        1,
                         formatter.parse(req.getParameter("dateOper")),
-                        Integer.parseInt(req.getParameter("budget")),
+                        1,
                         Float.parseFloat(req.getParameter("summa")),
                         req.getParameter("description"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         } catch (NumberFormatException e) {
+            e.printStackTrace();
             //LOGGER.error("error in parameters");
         }
-        resp.sendRedirect(req.getContextPath() + "/budgetoperations/");
+        resp.sendRedirect(req.getContextPath() + "/listBudgets");//budgetoperations
     }
 
     private boolean tryParseInt(String value) {

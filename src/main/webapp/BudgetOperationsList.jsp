@@ -18,6 +18,7 @@
     </style>
 </head>
 <body>
+<a href="<c:url value="/logout" />"> Выход</a>
 <table border="1">
     <thead>
     <tr>
@@ -30,18 +31,18 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${requestScope.BudgetOperations}" var="BudgetOperation">
+    <c:forEach items="${BudgetOperations}" var="BudgetOperation">
         <tr>
-            <td><c:out value="${BudgetOperation.id}"></c:out></td>
+            <td>ra<c:out value="${BudgetOpetion.id}"></c:out></td>
             <td><c:out value="${BudgetOperation.dateOper}"></c:out></td>
             <td><c:out value="${BudgetOperation.budget}"></c:out></td>
             <td><c:out value="${BudgetOperation.summa}"></c:out></td>
             <td><c:out value="${BudgetOperation.description}"></c:out></td>
-            <td><a href="${pageContext.request.contextPath}/BudgetOperations/?edit=${BudgetOperation.id}">Редактировать</a>  <a href="${pageContext.request.contextPath}/budgetoperations/?delete=${BudgetOperation.id}" onclick="if (!confirm('Are you sure?')) return false;">Удалить</a></td>
+            <td><a href="${pageContext.request.contextPath}/BudgetOperationsForm?edit=${BudgetOperation.id}">Редактировать</a>  <a href="${pageContext.request.contextPath}/BudgetOperationsForm?delete=${BudgetOperation.id}" onclick="if (!confirm('Are you sure?')) return false;">Удалить</a></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<p><a href="${pageContext.request.contextPath}/BudgetOperations/?add=1">Добавить</a></p>
+<p><a href="${pageContext.request.contextPath}/BudgetOperationsForm?add=1">Добавить</a></p>
 </body>
 </html>

@@ -63,7 +63,8 @@ public class BudgetOperationDAOImpl implements BudgetOperationDAO {
              PreparedStatement statement = connection.prepareStatement(INSERT_INTO,
                      Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, budgetOperation.getUserID());
-            statement.setDate(2, (Date) budgetOperation.getDateOper());
+            //statement.setDate(2, (Date) budgetOperation.getDateOper());
+            statement.setDate(2, new java.sql.Date( budgetOperation.getDateOper().getTime()));
             statement.setInt(3, budgetOperation.getBudget());
             statement.setFloat(4, budgetOperation.getSumma());
             statement.setString(5, budgetOperation.getDescription());

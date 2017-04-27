@@ -20,6 +20,29 @@
         <servlet-name>BudgetOperationsServlet</servlet-name>
         <servlet-class>main.controllers.BudgetOperationsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>main.controllers.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistrationServlet</servlet-name>
+        <servlet-class>main.controllers.RegistrationServlet</servlet-class>
+    </servlet>
+
+    <filter>
+        <filter-name>userFilter</filter-name>
+        <filter-class>main.controllers.UserFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>userFilter</filter-name>
+        <url-pattern>/listBudgets</url-pattern>
+     </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>userFilter</filter-name>
+        <url-pattern>/BudgetOperationsForm</url-pattern>
+    </filter-mapping>
 
   <servlet-mapping>
     <servlet-name>HelloServlet</servlet-name>
@@ -32,6 +55,18 @@
     <servlet-mapping>
         <servlet-name>BudgetOperationsServlet</servlet-name>
         <url-pattern>/listBudgets</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrationServlet</servlet-name>
+        <url-pattern>/Registration</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BudgetOperationsServlet</servlet-name>
+        <url-pattern>/BudgetOperationsForm</url-pattern>
     </servlet-mapping>
 
 </web-app>

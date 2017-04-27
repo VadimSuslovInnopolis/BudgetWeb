@@ -1,5 +1,6 @@
 package main.controllers;
 
+import main.model.pojo.User;
 import main.services.UserService;
 import main.services.UserServiceImpl;
 import org.apache.log4j.PropertyConfigurator;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Created by admin on 21.04.2017.
@@ -26,6 +28,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().setAttribute("loginError", "");
         req.getRequestDispatcher("login.jsp")
                 .forward(req, resp);
     }
@@ -35,14 +38,27 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        if (login.length() < 7 || password.length() < 7) {
-            resp.sendRedirect(req.getContextPath() + "/");
-        } else {
-            if (userService.auth(login, password) != null) {
-                req.getSession().setAttribute("userLogin", login);
-                //logger.debug("user: " + login + " logged" );
-                resp.sendRedirect(req.getContextPath() + "/listBudgets");
-            }
+        String servletPath = req.getServletPath();
+
+            User user =userService.auth(login, password);
+            if(user != null){
+                req.getSession().setAttribute("login", login);
+                req.getSession().setAttribute("admin", user.isAdmin());
+                try {
+                    resp.sendRedirect(req.getContextPath() + "/listBudgets");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                req.getSession().setAttribute("loginError", "Неправильный логин или пароль");
+                try {
+//                        resp.sendRedirect(req.getContextPath() + "/login");
+                    req.getRequestDispatcher( "/login.jsp").forward(req,resp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
         }
     }
 }

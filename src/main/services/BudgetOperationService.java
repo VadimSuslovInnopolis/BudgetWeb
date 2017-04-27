@@ -17,5 +17,5 @@ public interface BudgetOperationService {
 
     public BudgetOperation create();
 
-    public void save(Integer id, Integer userID, Date dateOper, Integer budget, Float summa, String description);
+    public void save(int id, int userID, Date dateOper, int budget, Float summa, String description);
 }

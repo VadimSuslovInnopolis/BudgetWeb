@@ -8,5 +8,6 @@ import main.model.pojo.User;
 public interface UserDAO {
 
         User findUser(String login, String password);
+        User insert(User entity);
 
 }

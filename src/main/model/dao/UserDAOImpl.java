@@ -26,8 +26,42 @@ public class UserDAOImpl implements UserDAO {
         throw new NotImplementedException();
     }
 
-    public Long insert(User entity) {
-        throw new NotImplementedException();
+    @Override
+    public User insert(User entity) {
+        User user = null;
+
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection
+                     .prepareStatement("INSERT INTO users (firstname, lastname, login, password, admin)" +
+                             " VALUES (?,?,?,?,?)")) {
+
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getLogin());
+            statement.setString(4, entity.getPassword());
+            statement.setBoolean(5, entity.isAdmin());
+
+            statement.executeUpdate();
+
+            PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM users WHERE login = ?");
+            statement2.setString(1, entity.getLogin());
+            ResultSet resultSet = statement2.executeQuery();
+            if (resultSet.next()) {
+                user = new User(resultSet.getLong("id"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getString("login"),
+                        resultSet.getString("password"),
+                        resultSet.getBoolean("admin"));
+            }
+
+            logger.debug("user " + user);
+        } catch (SQLException e) {
+            logger.error(e);
+            e.printStackTrace();
+        }
+
+        return user;
     }
 
     public void update(User entity) {

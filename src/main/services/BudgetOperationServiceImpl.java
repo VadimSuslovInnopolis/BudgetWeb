@@ -24,7 +24,8 @@ public class BudgetOperationServiceImpl implements BudgetOperationService {
 
     @Override
     public BudgetOperation get(Integer id) {
-        return null;
+        //BudgetOperation budgetOperation = new BudgetOperation(id, userID, dateOper, budget, summa, description);
+        return budgetOperationDAO.getById(id);
     }
 
     @Override
@@ -38,7 +39,8 @@ public class BudgetOperationServiceImpl implements BudgetOperationService {
     }
 
     @Override
-    public void save(Integer id, Integer userID, Date dateOper, Integer budget, Float summa, String description) {
-
+    public void save(int id, int userID, Date dateOper, int budget, Float summa, String description) {
+        BudgetOperation budgetOperation = new BudgetOperation(id, userID, dateOper, budget, summa, description);
+        budgetOperationDAO.insert(budgetOperation);
     }
 }

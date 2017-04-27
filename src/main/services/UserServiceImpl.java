@@ -25,4 +25,9 @@ public class UserServiceImpl implements UserService  {
 
         return user;
     }
+
+
+    public User addUser(User user) {
+        return userDAO.insert(user);
+    }
 }
