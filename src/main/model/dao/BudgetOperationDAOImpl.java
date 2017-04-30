@@ -16,7 +16,7 @@ public class BudgetOperationDAOImpl implements BudgetOperationDAO {
     private static final String SELECT_ALL = "SELECT id, userID, dateOper, bugdet, summa, description FROM BudgetOperations";
 
     private static final String INSERT_INTO = "INSERT INTO BudgetOperations (userID, dateOper, bugdet, summa, description) VALUES (?, ?, ?,?, ?)";
-    private static final String UPDATE_WHERE = "UPDATE BudgetOperations SET userID = ?, dateOper = ?, bugdet = ? summa = ? description = ? WHERE id = ?";
+    private static final String UPDATE_WHERE = "UPDATE BudgetOperations SET userID = ?, dateOper = ?, bugdet = ?, summa = ?, description = ? WHERE id = ?";
     private static final String DELETE_BY_ID = "DELETE FROM BudgetOperations WHERE id=?";
 
     @Override
@@ -47,6 +47,9 @@ public class BudgetOperationDAOImpl implements BudgetOperationDAO {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 budgetOperation = createEntity(resultSet);
+            }
+            else {
+                budgetOperation = new BudgetOperation(0, 0,null, 0, 0,"");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,7 +90,7 @@ public class BudgetOperationDAOImpl implements BudgetOperationDAO {
              PreparedStatement statement = connection
                      .prepareStatement(UPDATE_WHERE)) {
             statement.setInt(1, budgetOperation.getUserID());
-            statement.setDate(2, (Date) budgetOperation.getDateOper());
+            statement.setDate(2, new java.sql.Date( budgetOperation.getDateOper().getTime()));
             statement.setInt(3, budgetOperation.getBudget());
             statement.setFloat(4, budgetOperation.getSumma());
             statement.setString(5, budgetOperation.getDescription());
@@ -100,12 +103,12 @@ public class BudgetOperationDAOImpl implements BudgetOperationDAO {
     }
 
     @Override
-    public void delete(BudgetOperation budgetOperation) {
+    public void delete(int id) {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection
                      .prepareStatement(DELETE_BY_ID)) {
 
-            statement.setLong(1, budgetOperation.getId());
+            statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

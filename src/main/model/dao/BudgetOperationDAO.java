@@ -12,6 +12,6 @@ public interface BudgetOperationDAO {
     public BudgetOperation getById(Integer id);
     public void insert(BudgetOperation budgetOperation);
     public void update(BudgetOperation budgetOperation);
-    public void delete(BudgetOperation budgetOperation);
+    public void delete(int id);
     public BudgetOperation create();
 }

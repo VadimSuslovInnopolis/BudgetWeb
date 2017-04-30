@@ -3,6 +3,7 @@ package main.controllers;
 import main.services.BudgetOperationService;
 import main.services.BudgetOperationServiceImpl;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 /**
  * Created by admin on 23.04.2017.
  */
+@Controller
 public class BudgetOperationsServlet extends HttpServlet {
 //    private static final Logger LOGGER = Logger.getLogger(StudentServlet.class);
 //
@@ -31,12 +33,13 @@ public class BudgetOperationsServlet extends HttpServlet {
             req.setAttribute("BudgetOperation", budgetOperationService.get(id));
             getServletContext().getRequestDispatcher("/BudgetOperationsForm.jsp").forward(req, resp);
         } else if (req.getParameter("add") != null) {
-            req.setAttribute("BudgetOperation", budgetOperationService.create());
+            //req.setAttribute("BudgetOperation", budgetOperationService.create());
+            req.setAttribute("BudgetOperation", budgetOperationService.get(0));
             getServletContext().getRequestDispatcher("/BudgetOperationsForm.jsp").forward(req, resp);
         } else if (tryParseInt((String) req.getParameter("delete")) ) {
             id = Integer.parseInt((String) req.getParameter("delete"));
             budgetOperationService.delete(id);
-            resp.sendRedirect(req.getContextPath() + "/BudgetOperations/");
+            resp.sendRedirect(req.getContextPath() + "/listBudgets");
         } else {
             req.setAttribute("BudgetOperations", budgetOperationService.getAllBedgetOperations());
             getServletContext().getRequestDispatcher("/BudgetOperationsList.jsp").forward(req, resp);
@@ -59,7 +62,7 @@ public class BudgetOperationsServlet extends HttpServlet {
             try {
                 budgetOperationService.save(
                         id,
-                        1,
+                        11,
                         formatter.parse(req.getParameter("dateOper")),
                         1,
                         Float.parseFloat(req.getParameter("summa")),

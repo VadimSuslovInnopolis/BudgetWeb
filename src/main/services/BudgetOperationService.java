@@ -13,7 +13,7 @@ public interface BudgetOperationService {
 
     public BudgetOperation get(Integer id);
 
-    public void delete(Integer id);
+    public void delete(int id);
 
     public BudgetOperation create();
 
