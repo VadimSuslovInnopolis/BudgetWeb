@@ -32,74 +32,35 @@ public class LoginServlet {
 
     private static UserService userService = new UserServiceImpl();
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String showLoginPage(HttpServletRequest req) {
-        req.getSession().setAttribute("loginError", "");
-        return "login";
-    }
-
-    @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String postLoginPage(HttpServletRequest req, HttpServletResponse resp) {
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-
-        String servletPath = req.getServletPath();
-
-        User user = userService.auth(login, password);
-        if (user != null) {
-            req.getSession().setAttribute("login", login);
-            req.getSession().setAttribute("admin", user.isAdmin());
-
-            return "BudgetOperationsList";
-        } else {
-            req.getSession().setAttribute("loginError", "Неправильный логин или пароль");
-
-            return "login";
-//            try {
-////                        resp.sendRedirect(req.getContextPath() + "/login");
-//                req.getRequestDispatcher("/login.jsp").forward(req, resp);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (ServletException e) {
-//                e.printStackTrace();
-//            }
-
-        }
-    }
-
-//    @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//    @RequestMapping(value = "login", method = RequestMethod.GET)
+//    public String showLoginPage(HttpServletRequest req) {
 //        req.getSession().setAttribute("loginError", "");
-//        req.getRequestDispatcher("login.jsp")
-//                .forward(req, resp);
+//        return "login";
 //    }
-//
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+//    @RequestMapping(value = "login", method = RequestMethod.POST)
+//    public String postLoginPage(HttpServletRequest req, HttpServletResponse resp) {
 //        String login = req.getParameter("login");
 //        String password = req.getParameter("password");
 //
 //        String servletPath = req.getServletPath();
 //
-//            User user =userService.auth(login, password);
-//            if(user != null){
-//                req.getSession().setAttribute("login", login);
-//                req.getSession().setAttribute("admin", user.isAdmin());
-//                try {
-//                    resp.sendRedirect(req.getContextPath() + "/listBudgets");
+//        User user = userService.auth(login, password);
+//        if (user != null) {
+//            req.getSession().setAttribute("login", login);
+//            req.getSession().setAttribute("admin", user.isAdmin());
 //
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            } else {
-//                req.getSession().setAttribute("loginError", "Неправильный логин или пароль");
-//                try {
-////                        resp.sendRedirect(req.getContextPath() + "/login");
-//                    req.getRequestDispatcher( "/login.jsp").forward(req,resp);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+//            return "redirect:BudgetOperationsList";
+//        } else {
+//            req.getSession().setAttribute("loginError", "Неправильный логин или пароль");
 //
+//            return "login";
 //        }
 //    }
+
+    @RequestMapping(value = "/Registration", method = RequestMethod.GET)
+    public String getBudgetFormRegistration(HttpServletRequest req) {
+        return "Registration";
+    }
+
 }

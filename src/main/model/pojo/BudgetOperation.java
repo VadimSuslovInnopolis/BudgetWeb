@@ -22,6 +22,9 @@ public class BudgetOperation {
         this.description = description;
     }
 
+    public BudgetOperation() {
+    }
+
     public void setId(int id) {
         this.id = id;
     }

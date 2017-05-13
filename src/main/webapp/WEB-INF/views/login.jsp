@@ -7,8 +7,8 @@
 <body>
 
 <div class="loginmodal-container" id="loginDiv">
-    <form method="post" action="/budget/login">
-        <input type="text" name="login" placeholder="Логин" required/>
+    <form method="post" action="<c:url value='j_spring_security_check' />">
+        <input type="text" name="username" placeholder="Логин" required/>
         <input type="text" name="password" placeholder="Пароль" required/>
         <input type="submit" value="login"/>
     </form>
@@ -20,6 +20,7 @@
     <a href="<c:url value="/Registration" />"> Регистрация</a>
 
 </div>
-
+<%--<input type="hidden" name="${_csrf.parameterName}"--%>
+       <%--value="${_csrf.token}" />--%>
 </body>
 </html>
